@@ -1,7 +1,3 @@
-window.addEventListener("load", () => {
-	setupThemeToggle()
-})
-
 const localStorageKey = 'theme';
 
 const isDark = () => {
@@ -31,3 +27,13 @@ const setupThemeToggle = () => {
 		toggleVisibility(!isDark())
 	});
 }
+
+const darkModeHook = {
+  mounted() {
+		setupThemeToggle();
+	},
+	updated() {
+	},
+}
+
+export default darkModeHook;

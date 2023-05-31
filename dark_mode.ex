@@ -7,7 +7,8 @@ defmodule DarkMode do
       id="theme-toggle"
       type="button"
       phx-update="ignore"
-      class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2"
+      phx-hook="DarkThemeToggle"
+      class="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-lg text-sm p-2"
     >
       <svg
         id="theme-toggle-dark-icon"
@@ -18,7 +19,7 @@ defmodule DarkMode do
       >
         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
       </svg>
-      
+
       <svg
         id="theme-toggle-light-icon"
         class="w-5 h-5 text-transparent"
@@ -34,6 +35,19 @@ defmodule DarkMode do
         </path>
       </svg>
     </button>
+
+    <script>
+      // Toggle early based on <html class="dark">
+      const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+      const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+      if (themeToggleDarkIcon != null && themeToggleLightIcon != null) {
+        let dark = document.documentElement.classList.contains('dark');
+        const show = dark ? themeToggleDarkIcon : themeToggleLightIcon
+        const hide = dark ? themeToggleLightIcon : themeToggleDarkIcon
+        show.classList.remove('hidden', 'text-transparent');
+        hide.classList.add('hidden', 'text-transparent');
+      }
+    </script>
     """
   end
 end

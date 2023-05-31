@@ -11,8 +11,20 @@ How to add a button to switch between dark and light mode in Phoenix `>=  1.7.2`
 	```
 * Drop `dark_mode.ex` into your `lib/*_web/components` folder.
 * Drop `dark_mode.js` into your `js/vendor`.
-* Edit `assets/js/app.js`:
-  * Append `import "../vendor/dark_mode"` to the list of imports.
+* Add a hook in `assets/js/app.js`:
+  ```js
+  import darkModeHook from "../vendor/dark_mode"
+  let Hooks = {}
+  Hooks.DarkThemeToggle = darkModeHook
+	```
+	
+	Send `Hook` as a `hooks:` object key while creating `liveSocket`:
+
+	```js
+	let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks}, )
+	```
+
+
 * Modify your `root.html.heex`:
   * `<html lang="en" class="dark">`
   * Add this as a `<head>`'s first child to run as soon as possible:
